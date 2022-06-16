@@ -1,4 +1,7 @@
 from locators import PageLocators
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+import time
 
 class BasePage(object):
     def __init__(self, driver):
@@ -11,31 +14,34 @@ class MainPage(BasePage):
         element.send_keys(id_product)
 
     def click_search_button(self):
-        element1 = self.driver.find_element(*PageLocators.search_button_path)
-        element1.click()
+        element = self.driver.find_element(*PageLocators.search_button_path)
+        element.click()
+        time.sleep(2)
 
     def go_to_basket(self):
-        element2 = self.driver.find_element(*PageLocators.basket_path)
-        element2.click()
+        element = self.driver.find_element(*PageLocators.basket_path)
+        element.click()
         return Basket(self.driver)
 
 class ProductPage(BasePage):
 
     def click_buy_button(self):
-        element3 = self.driver.find_element(*PageLocators.buy_button_path)
-        element3.click()
+        element = self.driver.find_element(*PageLocators.buy_button_path)
+        element.click()
         return Basket(self.driver)
 
     def return_to_mainpage(self):
-        element5 = self.driver.find_element(*PageLocators.main_page_path)
-        element5.click()
+        element = self.driver.find_element(*PageLocators.main_page_path)
+        element.click()
         return MainPage(self.driver)
 
 class Basket(BasePage):
     def find_product_title(self):
-        element6 = self.driver.find_element(*PageLocators.product_title)
-        return element6
+        element = self.driver.find_element(*PageLocators.product_title)
+        return element.text
 
     def click_close_button(self):
-        element4 = self.driver.find_element(*PageLocators.close_button_path)
-        element4.click()
+        wait = WebDriverWait(self.driver, 10)
+        element_wait = wait.until(EC.element_to_be_clickable(PageLocators.close_button_path))
+        element_wait.click()
+
