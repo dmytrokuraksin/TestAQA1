@@ -6,8 +6,11 @@ from webdriver_manager.chrome import ChromeDriverManager
 class RozetkaTest(unittest.TestCase):
 
     id_prod = 'MD506Z/A'
+
     def setUp(self):
-        self.driver = webdriver.Chrome(ChromeDriverManager().install())
+        options = webdriver.ChromeOptions()
+        options.add_argument("--headless")
+        self.driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
         self.driver.implicitly_wait(10)
         self.driver.get("https://rozetka.com.ua/")
 
