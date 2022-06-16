@@ -8,4 +8,3 @@ class PageLocators(object):
     main_page_path = (By.XPATH, "/html/body/app-root/div/div/rz-header/rz-main-header/header/div/div/a/picture/img")
     basket_path = (By.XPATH, "/html/body/app-root/div/div/rz-header/rz-main-header/header/div/div/ul/li[7]/rz-cart/button")
     product_title = (By.XPATH, "/html/body/app-root/single-modal-window/div[3]/div[2]/rz-shopping-cart/div/ul/li/rz-cart-product/div/div[1]/div/a")
-
