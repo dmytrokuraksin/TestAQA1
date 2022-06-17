@@ -14,34 +14,42 @@ class MainPage(BasePage):
         element.send_keys(id_product)
 
     def click_search_button(self):
-        element = self.driver.find_element(*PageLocators.search_button_path)
-        element.click()
+        wait = WebDriverWait(self.driver, 10)
+        element_wait = wait.until(EC.element_to_be_clickable(PageLocators.search_button_path))
+        element_wait.click()
         time.sleep(2)
 
     def go_to_basket(self):
-        element = self.driver.find_element(*PageLocators.basket_path)
-        element.click()
+        wait = WebDriverWait(self.driver, 10)
+        element_wait = wait.until(EC.element_to_be_clickable(PageLocators.basket_path))
+        element_wait.click()
         return Basket(self.driver)
 
 class ProductPage(BasePage):
 
     def click_buy_button(self):
-        element = self.driver.find_element(*PageLocators.buy_button_path)
-        element.click()
+        wait = WebDriverWait(self.driver, 20)
+        element_wait = wait.until(EC.element_to_be_clickable(PageLocators.buy_button_path))
+        element_wait.click()
         return Basket(self.driver)
 
     def return_to_mainpage(self):
-        element = self.driver.find_element(*PageLocators.main_page_path)
-        element.click()
+        wait = WebDriverWait(self.driver, 10)
+        element_wait = wait.until(EC.element_to_be_clickable(PageLocators.main_page_path))
+        element_wait.click()
         return MainPage(self.driver)
 
 class Basket(BasePage):
     def find_product_title(self):
-        element = self.driver.find_element(*PageLocators.product_title)
+        wait = WebDriverWait(self.driver, 10)
+        element = wait.until(EC.visibility_of_element_located(PageLocators.product_title))
         return element.text
 
     def click_close_button(self):
-        wait = WebDriverWait(self.driver, 10)
-        element_wait = wait.until(EC.element_to_be_clickable(PageLocators.close_button_path))
-        element_wait.click()
+        try:
+            wait = WebDriverWait(self.driver, 10)
+            element_wait = wait.until(EC.element_to_be_clickable(PageLocators.close_button_path))
+            element_wait.click()
+        except:
+            pass
 

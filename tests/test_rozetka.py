@@ -5,11 +5,13 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 class RozetkaTest(unittest.TestCase):
 
-    id_prod = 'MD506Z/A'
+    id_prod = 'MD506Z/A' #Код товара для поиска
 
     def setUp(self):
+        #Инициализация драйвера, добавление опций
         options = webdriver.ChromeOptions()
-        options.add_argument("--headless")
+        options.add_argument("--start-maximized") #аргумент '--headless' для теста без UI
+        options.add_argument("--disable-notifications")
         self.driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
         self.driver.implicitly_wait(10)
         self.driver.get("https://rozetka.com.ua/")
@@ -23,7 +25,7 @@ class RozetkaTest(unittest.TestCase):
         basket_page.click_close_button() #Нажатие кнопки закрыть окно корзины
         product_page.return_to_mainpage() #Возврат на главную страницу
         main_page.go_to_basket() #Переход на страницу корзины
-        title = basket_page.find_product_title()
+        title = basket_page.find_product_title() #Поиск названия товара в корзине
         assert self.id_prod in title #Проверка добавления товара в корзину
 
     def tearDown(self):
