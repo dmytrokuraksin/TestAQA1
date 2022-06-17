@@ -30,4 +30,5 @@ class RozetkaTest(unittest.TestCase):
 
     def tearDown(self):
         self.driver.close()
+        self.driver.quit()
 
